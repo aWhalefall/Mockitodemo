@@ -8,6 +8,8 @@ public interface LoginView {
 
     void showLoading();
 
+
+
     void hiddenLoading();
 
     void LoginError(String info);
