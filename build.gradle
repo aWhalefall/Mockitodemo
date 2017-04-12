@@ -6,7 +6,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.0'
-
+        classpath 'com.mcxiaoke.gradle:packer-ng:1.0.8'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
 
     }
 }

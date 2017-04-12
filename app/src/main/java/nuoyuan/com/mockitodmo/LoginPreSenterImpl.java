@@ -1,19 +1,26 @@
 package nuoyuan.com.mockitodmo;
 
+
+import android.app.Activity;
+import android.widget.Toast;
+
+import javax.inject.Inject;
+
 /**
  * Created by weichyang on 2017/3/8.
  */
 
+
 public class LoginPreSenterImpl implements LoginPresenter {
 
 
-    private final LoginView loginView;
+    public LoginView loginView;
     MockRemoteResource mockRemoteResource;
 
+    @Inject
     public LoginPreSenterImpl(LoginView loginView) {
         this.loginView = loginView;
         mockRemoteResource = new MockRemoteResource();
-
     }
 
     //为了测试方便定义的构造
@@ -44,5 +51,10 @@ public class LoginPreSenterImpl implements LoginPresenter {
             }
         });
     }
+
+    public void test(Activity activity) {
+        Toast.makeText(activity, "注解成功", 1000).show();
+    }
+
 }
 

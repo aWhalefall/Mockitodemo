@@ -5,12 +5,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+
+import com.mcxiaoke.packer.helper.PackerNg;
+
+import javax.inject.Inject;
+
+import nuoyuan.com.mockitodmo.annotation.ActivityComponent;
+import nuoyuan.com.mockitodmo.annotation.DaggerActivityComponent;
+import nuoyuan.com.mockitodmo.annotation.MainModule;
+
 
 public class MainActivity extends AppCompatActivity implements LoginView, View.OnClickListener {
 
     private TextView textView;
     private Button button;
-    private LoginPreSenterImpl presenter;
+
+    @Inject
+    public LoginPreSenterImpl presenter;
 
     /**
      * 类似meishi模式
@@ -20,12 +33,20 @@ public class MainActivity extends AppCompatActivity implements LoginView, View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //进行注解
 
+
+        setContentView(R.layout.activity_main);
         textView = (TextView) findViewById(R.id.loading_show);
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(this);
-        presenter = new LoginPreSenterImpl(this);
+
+        ActivityComponent component = DaggerActivityComponent.builder().mainModule(new MainModule(this)).
+                build();
+        component.inject(this);
+
+        presenter.test(this);
+
 
     }
 
@@ -57,7 +78,9 @@ public class MainActivity extends AppCompatActivity implements LoginView, View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button:  //进行登录
-                presenter.Login();
+//                presenter.Login();
+                String value = PackerNg.getMarket(MainActivity.this);
+                Toast.makeText(MainActivity.this, "当前渠道" + value, 1000).show();
                 break;
 
             default:
